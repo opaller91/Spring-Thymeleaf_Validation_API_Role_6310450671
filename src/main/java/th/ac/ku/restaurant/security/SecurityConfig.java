@@ -23,6 +23,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/", "/signup", "/css/**", "/js/**").permitAll() //ถ้าเจอแบบนี้ให้อนุญาติไปหน้า home
+                .antMatchers("/menu/add")
+                .access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/menu")
+                .access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/login")
